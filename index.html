@@ -589,6 +589,7 @@ function parseSong(text){
   const toks=text.replace(/[|｜,，、\n\r\t]/g,' ').split(/\s+/).filter(Boolean);
   const notes=[],bad=[];
   for(const raw of toks){
+    if(/^[-—–－]+$/.test(raw)){const L=notes[notes.length-1];if(L){L.beats+=raw.length;continue;}bad.push(raw);continue;}
     let s=raw,oct=0;
     if(s.startsWith('高')){oct++;s=s.slice(1);}
     const m=s.match(/^(sol|so|do|re|mi|fa|la|si|ti|[0-7])/i);
